@@ -150,14 +150,14 @@ class Line extends Component {
       <path
         className={`rsm-line${pressed ? " rsm-line--pressed" : ""}${
           hover ? " rsm-line--hover" : ""
-          } ${className}`}
+        } ${className}`}
         transform={`${scale}`}
         style={
           style[
             isHidden
               ? "hidden"
               : pressed || hover ? (pressed ? "pressed" : "hover") : "default"
-            ]
+          ]
         }
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}

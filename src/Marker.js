@@ -119,21 +119,21 @@ class Marker extends Component {
 
     return (
       <g className={ `rsm-marker${ pressed ? " rsm-marker--pressed" : "" }${ hover ? " rsm-marker--hover" : "" }` }
-         transform={ `translate(
+        transform={ `translate(
            ${ translation[0] }
            ${ translation[1] }
          ) ${scale}`}
-         style={ style[isHidden ? "hidden" : (pressed || hover ? (pressed ? "pressed" : "hover") : "default")] }
-         onMouseEnter={ this.handleMouseEnter }
-         onMouseLeave={ this.handleMouseLeave }
-         onMouseDown={ this.handleMouseDown }
-         onMouseUp={ this.handleMouseUp }
-         onClick={ this.handleMouseClick }
-         onMouseMove={ this.handleMouseMove }
-         onFocus={ this.handleFocus }
-         onBlur={ this.handleBlur }
-         tabIndex={ tabable ? 0 : -1 }
-       >
+        style={ style[isHidden ? "hidden" : (pressed || hover ? (pressed ? "pressed" : "hover") : "default")] }
+        onMouseEnter={ this.handleMouseEnter }
+        onMouseLeave={ this.handleMouseLeave }
+        onMouseDown={ this.handleMouseDown }
+        onMouseUp={ this.handleMouseUp }
+        onClick={ this.handleMouseClick }
+        onMouseMove={ this.handleMouseMove }
+        onFocus={ this.handleFocus }
+        onBlur={ this.handleBlur }
+        tabIndex={ tabable ? 0 : -1 }
+      >
         { children }
       </g>
     )

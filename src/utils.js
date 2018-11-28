@@ -2,22 +2,22 @@
 import React from "react"
 
 export function calculateResizeFactor(actualDimension, baseDimension) {
-  if (actualDimension === 0) return 1;
+  if (actualDimension === 0) return 1
   return 1 / 100 * (100 / actualDimension * baseDimension)
 }
 
 export function calculateMousePosition(direction, projection, props, zoom, resizeFactor, center = props.center, width = props.width, height = props.height) {
   const reference = { x: 0, y: 1 }
   const canRotate = !!projection.rotate
-  const reverseRotation = !!canRotate ? projection.rotate().map(item => -item) : false
-  const point = !!reverseRotation
+  const reverseRotation = canRotate ? projection.rotate().map(item => -item) : false
+  const point = reverseRotation
     ? projection.rotate(reverseRotation)([-center[0],-center[1]])
     : projection([center[0],center[1]])
   const returner = point
     ? (point[reference[direction]] - (reference[direction] === 0 ? width : height) / 2) * zoom * (1/resizeFactor)
     : 0
   if (canRotate) projection.rotate([-reverseRotation[0],-reverseRotation[1],-reverseRotation[2]])
-  return !!reverseRotation ? returner : -returner
+  return reverseRotation ? returner : -returner
 }
 
 export function isChildOfType(child, expectedTypes) {
@@ -30,14 +30,14 @@ export function createNewChildren(children, props) {
     return isChildOfType(children, ["Geographies"]) ? React.cloneElement(children, {
       projection: props.projection,
     }) : (isChildOfType(children, ["Group", "Markers", "Lines", "Annotations", "Annotation", "Graticule"]) ?
-    React.cloneElement(children, {
-      projection: props.projection,
-      zoom: props.zoom,
-      width: props.width,
-      height: props.height,
-      groupName: props.groupName,
-      itemName: props.itemName,
-    }) : children)
+      React.cloneElement(children, {
+        projection: props.projection,
+        zoom: props.zoom,
+        width: props.width,
+        height: props.height,
+        groupName: props.groupName,
+        itemName: props.itemName,
+      }) : children)
   }
   else {
     return children.map((child, i) => {
@@ -47,22 +47,22 @@ export function createNewChildren(children, props) {
           key: `zoomable-child-${i}`,
           projection: props.projection,
         }) : (isChildOfType(child, ["Group", "Markers", "Lines", "Annotations", "Annotation", "Graticule"]) ?
-        React.cloneElement(child, {
-          key: `zoomable-child-${i}`,
-          projection: props.projection,
-          zoom: props.zoom,
-          width: props.width,
-          height: props.height,
-          groupName: props.groupName,
-          itemName: props.itemName,
-        }) : child)
+          React.cloneElement(child, {
+            key: `zoomable-child-${i}`,
+            projection: props.projection,
+            zoom: props.zoom,
+            width: props.width,
+            height: props.height,
+            groupName: props.groupName,
+            itemName: props.itemName,
+          }) : child)
     })
   }
 }
 
 export function roundPath(path, precision) {
   if (!path) return
-  const query = /[\d\.-][\d\.e-]*/g
+  const query = /[\d.-][\d.e-]*/g
   return path.replace(query, n => Math.round(n * (1/precision)) / (1/precision))
 }
 

@@ -1,6 +1,6 @@
 {
   "name": "react-simple-maps",
-  "version": "0.12.1",
+  "version": "0.12.2",
   "description": "An svg map component built with and for React",
   "main": "lib/index.js",
   "scripts": {
@@ -40,6 +40,8 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
+    "eslint": "^5.9.0",
+    "eslint-plugin-react": "^7.11.1",
     "expect": "^23.5.0",
     "mocha": "^5.2.0",
     "react": "^16.4.2",

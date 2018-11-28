@@ -1,6 +1,5 @@
 
 import React, { Component } from "react"
-import { geoPath } from "d3-geo"
 
 import { createNewChildren } from "./utils"
 
@@ -29,7 +28,7 @@ class ZoomableGlobe extends Component {
     this.handleTouchStart = this.handleTouchStart.bind(this)
     this.handleTouchMove = this.handleTouchMove.bind(this)
   }
-  handleMouseMove({ pageX, pageY, clientX, clientY }) {
+  handleMouseMove({ clientX, clientY }) {
     if (this.props.disablePanning) return
     if (!this.state.isPressed) return
 
@@ -61,7 +60,7 @@ class ZoomableGlobe extends Component {
     const newCenter = this.props.projection.invert([this.props.width/2,this.props.height/2])
     this.props.onMoveEnd(newCenter)
   }
-  handleMouseDown({ pageX, pageY, clientX, clientY }) {
+  handleMouseDown({ clientX, clientY }) {
     if (this.props.disablePanning) return
     this.setState({
       isPressed: true,
@@ -86,10 +85,8 @@ class ZoomableGlobe extends Component {
     }
   }
   componentWillReceiveProps(nextProps) {
-    const { mouseX, mouseY } = this.state
-    const { projection, center, zoom } = this.props
+    const { center } = this.props
 
-    const zoomFactor = nextProps.zoom / zoom
     const centerChanged = JSON.stringify(nextProps.center) !== JSON.stringify(center)
 
     this.setState({
@@ -98,7 +95,6 @@ class ZoomableGlobe extends Component {
     })
   }
   componentDidMount() {
-    const { width, height, projection, zoom } = this.props
 
     window.addEventListener("resize", this.handleResize)
     window.addEventListener("mouseup", this.handleMouseUp)
@@ -119,37 +115,32 @@ class ZoomableGlobe extends Component {
       children,
     } = this.props
 
-    const {
-      mouseX,
-      mouseY,
-    } = this.state
-
     return (
       <g className="rsm-zoomable-globe"
-         ref={ zoomableGlobeNode => this.zoomableGlobeNode = zoomableGlobeNode }
-         transform={`
+        ref={ zoomableGlobeNode => this.zoomableGlobeNode = zoomableGlobeNode }
+        transform={`
            translate(${ width / 2 } ${ height / 2 })
            scale(${ zoom })
            translate(${ -width / 2 } ${ -height / 2 })
          `}
-         onMouseMove={ this.handleMouseMove }
-         onMouseUp={ this.handleMouseUp }
-         onMouseDown={ this.handleMouseDown }
-         onTouchStart={ this.handleTouchStart }
-         onTouchMove={ this.handleTouchMove }
-         onTouchEnd={ this.handleMouseUp }
-         style={ style }
+        onMouseMove={ this.handleMouseMove }
+        onMouseUp={ this.handleMouseUp }
+        onMouseDown={ this.handleMouseDown }
+        onTouchStart={ this.handleTouchStart }
+        onTouchMove={ this.handleTouchMove }
+        onTouchEnd={ this.handleMouseUp }
+        style={ style }
       >
         { createNewChildren(children, {
-            width,
-            height,
-            center: this.center,
-            backdrop: this.backdrop,
-            zoom: this.props.zoom,
-            disablePanning: this.props.disablePanning,
-            children,
-            projection: projection.rotate(this.state.rotation),
-          }) }
+          width,
+          height,
+          center: this.center,
+          backdrop: this.backdrop,
+          zoom: this.props.zoom,
+          disablePanning: this.props.disablePanning,
+          children,
+          projection: projection.rotate(this.state.rotation),
+        }) }
       </g>
     )
   }

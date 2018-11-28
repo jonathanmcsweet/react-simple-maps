@@ -1,13 +1,12 @@
 
-import React, { Component } from "react"
+import React from "react"
 
 import MapGroup from "./MapGroup"
 
 const Markers = ({
   groupName,
   itemName,
-  componentIdentifier,
-  ...restProps,
+  ...restProps
 }) =>
   <MapGroup
     groupName={groupName}
@@ -16,7 +15,6 @@ const Markers = ({
   />
 
 Markers.defaultProps = {
-  componentIdentifier: "Markers",
   groupName: "markers",
   itemName: "marker",
 }

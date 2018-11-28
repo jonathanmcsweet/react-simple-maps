@@ -51,14 +51,14 @@ class Geographies extends Component {
     )
   }
   shouldFetchGeographies(geography) {
-    return typeof(geography) === 'string'
+    return typeof(geography) === "string"
   }
   parseGeographies(geography) {
     if (Array.isArray(geography)) {
       return geography
     }
 
-    if (Object.prototype.toString.call(geography) === '[object Object]') {
+    if (Object.prototype.toString.call(geography) === "[object Object]") {
       return feature(geography, geography.objects[Object.keys(geography.objects)[0]]).features
     }
 
@@ -84,7 +84,7 @@ class Geographies extends Component {
       }
     }
     request.onerror = () => {
-      console.log("There was a connection error...")
+      console.error("There was a connection error...")
     }
     request.send()
 

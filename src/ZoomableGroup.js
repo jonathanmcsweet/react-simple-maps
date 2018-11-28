@@ -1,6 +1,5 @@
 
 import React, { Component } from "react"
-import { geoPath } from "d3-geo"
 
 import {
   calculateResizeFactor,
@@ -94,7 +93,7 @@ class ZoomableGroup extends Component {
   }
   componentWillReceiveProps(nextProps) {
     const { mouseX, mouseY, resizeFactorX, resizeFactorY } = this.state
-    const { projection, center, zoom } = this.props
+    const { center, zoom } = this.props
 
     const zoomFactor = nextProps.zoom / zoom
     const centerChanged = JSON.stringify(nextProps.center) !== JSON.stringify(center)
@@ -106,7 +105,7 @@ class ZoomableGroup extends Component {
     })
   }
   handleResize() {
-    const { width, height, projection, zoom } = this.props
+    const { width, height } = this.props
 
     const resizeFactorX = calculateResizeFactor(this.zoomableGroupNode.parentNode.getBoundingClientRect().width, width)
     const resizeFactorY = calculateResizeFactor(this.zoomableGroupNode.parentNode.getBoundingClientRect().height, height)
@@ -149,7 +148,6 @@ class ZoomableGroup extends Component {
       height,
       zoom,
       style,
-      projection,
       children,
     } = this.props
 
@@ -162,8 +160,8 @@ class ZoomableGroup extends Component {
 
     return (
       <g className="rsm-zoomable-group"
-         ref={ zoomableGroupNode => this.zoomableGroupNode = zoomableGroupNode }
-         transform={`
+        ref={ zoomableGroupNode => this.zoomableGroupNode = zoomableGroupNode }
+        transform={`
            translate(
              ${ Math.round((width / 2 + resizeFactorX * mouseX) * 100) / 100 }
              ${ Math.round((height / 2 + resizeFactorY * mouseY) * 100) / 100 }
@@ -171,13 +169,13 @@ class ZoomableGroup extends Component {
            scale(${ zoom })
            translate(${ -width / 2 } ${ -height / 2 })
          `}
-         onMouseMove={ this.handleMouseMove }
-         onMouseUp={ this.handleMouseUp }
-         onMouseDown={ this.handleMouseDown }
-         onTouchStart={ this.handleTouchStart }
-         onTouchMove={ this.handleTouchMove }
-         onTouchEnd={ this.handleMouseUp }
-         style={ style }
+        onMouseMove={ this.handleMouseMove }
+        onMouseUp={ this.handleMouseUp }
+        onMouseDown={ this.handleMouseDown }
+        onTouchStart={ this.handleTouchStart }
+        onTouchMove={ this.handleTouchMove }
+        onTouchEnd={ this.handleMouseUp }
+        style={ style }
       >
         <rect
           x={ this.state.backdrop.x }

@@ -54,7 +54,7 @@ class Annotation extends Component {
           ${ translation[1] + dy / zoom }
         )`}
         textAnchor={ createTextAnchor(dx) }
-        >
+      >
         { children }
         <path
           d={ connectorPath }

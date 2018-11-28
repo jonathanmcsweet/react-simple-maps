@@ -29,7 +29,6 @@ class ComposableMap extends Component {
       style,
       className,
       showCenter,
-      children,
       aspectRatio,
       viewBox,
       defs
@@ -37,11 +36,11 @@ class ComposableMap extends Component {
 
     return (
       <svg width={ width }
-           height={ height }
-           viewBox={ viewBox ? viewBox : `0 0 ${width} ${height}` }
-           className={ `rsm-svg ${className || ''}` }
-           style={ style }
-           preserveAspectRatio={ aspectRatio }>
+        height={ height }
+        viewBox={ viewBox ? viewBox : `0 0 ${width} ${height}` }
+        className={ `rsm-svg ${className || ""}` }
+        style={ style }
+        preserveAspectRatio={ aspectRatio }>
         {
           defs && (
             <defs>

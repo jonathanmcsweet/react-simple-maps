@@ -71,7 +71,6 @@ class Graticule extends Component {
   render() {
 
     const {
-      zoom,
       style,
       outline,
       fill,
